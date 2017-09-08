@@ -1,5 +1,3 @@
-
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -79,9 +77,7 @@ public class Aluno implements Registro {
 
 	@Override
 	public Aluno Clone() throws CloneNotSupportedException {
-
 		return ((Aluno) super.clone());
-
 	}
 
 	@Override

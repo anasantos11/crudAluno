@@ -1,15 +1,18 @@
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import javax.swing.JFileChooser;
 
 public class Arquivo {
-	private String nomeArquivo;
+	private String db;
+	private String indexador;
 	private static String dados;
 	private static long ponteiroAnterior;
 
 	public Arquivo() throws Exception {
-		this.nomeArquivo = pegarArquivo();
+		this.db = "bd.txt";
+		this.indexador = "indexes.txt";
 	}
 
 	/**
@@ -19,7 +22,7 @@ public class Arquivo {
 	 * @throws Exception
 	 */
 
-	public static String pegarArquivo() throws Exception {
+	/*public static String pegarArquivo() throws Exception {
 		JFileChooser arquivo = new JFileChooser();
 		int retorno = arquivo.showOpenDialog(null);
 		if (retorno == JFileChooser.CANCEL_OPTION) {
@@ -27,7 +30,7 @@ public class Arquivo {
 		}
 		String fileName = arquivo.getSelectedFile().getPath();
 		return fileName;
-	}
+	}*/
 
 	/**
 	 * Método para setar novo registro no arquivo, caso receba como parâmetro um
@@ -38,15 +41,18 @@ public class Arquivo {
 	 * @throws IOException
 	 */
 	public void criarRegistro(Registro r, long seek) throws IOException {
-		RandomAccessFile file = new RandomAccessFile(nomeArquivo, "rw");
+		RandomAccessFile file = new RandomAccessFile(db, "rw");
 		if (seek == -1) {
-			file.seek(file.length());
+			seek = file.length();
+			file.seek(seek);
 		} else {
 			file.seek(seek);
 		}
+		
 		file.writeInt(r.getByteArray().length);
 		file.write(r.getByteArray());
 		file.close();
+		criarIndex(new Index(r.getCodigo(), seek));
 	}
 
 	/**
@@ -56,7 +62,7 @@ public class Arquivo {
 	 * @throws IOException
 	 */
 	public String listarRegistros() throws IOException {
-		RandomAccessFile file = new RandomAccessFile(nomeArquivo, "r");
+		RandomAccessFile file = new RandomAccessFile(db, "r");
 		while (file.getFilePointer() < file.length()) {
 			int tamanho = file.readInt();
 			byte[] b = new byte[tamanho];
@@ -74,6 +80,36 @@ public class Arquivo {
 		file.close();
 		return dados;
 	}
+	
+	public void criarIndex(Index i) throws IOException {
+		RandomAccessFile rf = new RandomAccessFile(this.indexador, "rw");
+		long posicaoFinal = rf.length();
+		rf.seek(posicaoFinal);
+		
+		rf.write(i.getByteArray());
+		rf.close();
+	}
+	
+	public String listarIndexes() throws IOException {
+		Index i = null;
+		String dadosIndex = "";
+		try {
+			RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
+			while(rf.getFilePointer() < rf.length()) {
+				byte[] b = new byte[Integer.BYTES + Long.BYTES];
+				rf.read(b);
+				i = new Index();
+				i.setByteArray(b);
+				dadosIndex += i.toString();
+			}
+			
+			rf.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			return "Não existe nenhum index";
+		}
+		return dadosIndex;
+	}
 
 	/**
 	 * Método para retornar objeto caso seja localizado no registro
@@ -83,7 +119,7 @@ public class Arquivo {
 	 * @throws Exception
 	 */
 	public Aluno getRegistro(int codigo) throws Exception {
-		RandomAccessFile file = new RandomAccessFile(nomeArquivo, "rw");
+		RandomAccessFile file = new RandomAccessFile(db, "rw");
 		long seek = getPonteiroRegistro(codigo);
 		if (seek != -1) {
 			file.seek(seek);
@@ -106,7 +142,7 @@ public class Arquivo {
 	 * @throws IOException
 	 */
 	public long getPonteiroRegistro(int codigo) throws IOException {
-		RandomAccessFile file = new RandomAccessFile(nomeArquivo, "r");
+		RandomAccessFile file = new RandomAccessFile(db, "r");
 		while (file.getFilePointer() < file.length()) {
 			ponteiroAnterior = file.getFilePointer();
 			int tamanho = file.readInt();

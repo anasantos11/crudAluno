@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,23 +9,25 @@ public class Aplicacao {
 	private static Arquivo arquivo;
 
 	public static void main(String[] args) throws Exception {
-
 		try {
 			arquivo = new Arquivo();
 			try {
-				//pegarDadosAlunos();
-				//Aluno bruna = new Aluno(58,"Daniela");
-				//arquivo.atualizarRegistro(bruna, 2);
-				//arquivo.pegarRegistroEspecifico(1);
-				//arquivo.atualizarRegistroEspecifico(4);
-				//arquivo.inativarRegistro(2);
-				//Aluno a = new Aluno(1, "Teste");
-				//arquivo.atualizarRegistro(a, 1);
-				//arquivo.ativarRegistro(1);
+				pegarDadosAlunos();
+/*				Aluno bruna = new Aluno(58,"Daniela");
+				arquivo.atualizarRegistro(bruna, 2);
+				arquivo.pegarRegistroEspecifico(1);
+				arquivo.atualizarRegistroEspecifico(4);
+				arquivo.inativarRegistro(2);
+				Aluno a = new Aluno(1, "Teste");
+				arquivo.atualizarRegistro(a, 1);
+				arquivo.ativarRegistro(1);*/		
 				
 				JOptionPane.showMessageDialog(null, arquivo.listarRegistros(), "Alunos cadastrados",
 						JOptionPane.INFORMATION_MESSAGE);
-			} catch (IOException e) {
+				
+				JOptionPane.showMessageDialog(null, arquivo.listarIndexes(), "Alunos cadastrados",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (Exception e) {
