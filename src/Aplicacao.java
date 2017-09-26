@@ -13,19 +13,19 @@ public class Aplicacao {
 			arquivo = new Arquivo();
 			try {
 				pegarDadosAlunos();
-/*				Aluno bruna = new Aluno(58,"Daniela");
-				arquivo.atualizarRegistro(bruna, 2);
-				arquivo.pegarRegistroEspecifico(1);
-				arquivo.atualizarRegistroEspecifico(4);
-				arquivo.inativarRegistro(2);
-				Aluno a = new Aluno(1, "Teste");
-				arquivo.atualizarRegistro(a, 1);
-				arquivo.ativarRegistro(1);*/		
+//				Aluno bruna = new Aluno(58,"Daniela");
+//				arquivo.atualizarRegistro(bruna, 2);
+//				arquivo.pegarRegistroEspecifico(1);
+//				arquivo.atualizarRegistroEspecifico(4);
+//				arquivo.inativarRegistro(1010);
+//				Aluno a = new Aluno(1, "Teste");
+//				arquivo.atualizarRegistro(bruna, 58);
+//				arquivo.ativarRegistro(1010);
 				
 				JOptionPane.showMessageDialog(null, arquivo.listarRegistros(), "Alunos cadastrados",
 						JOptionPane.INFORMATION_MESSAGE);
 				
-				JOptionPane.showMessageDialog(null, arquivo.listarIndexes(), "Alunos cadastrados",
+				JOptionPane.showMessageDialog(null, arquivo.listarIndexes(), "INdexes cadastrados",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
@@ -45,7 +45,7 @@ public class Aplicacao {
 		int codigo;
 		String nome;
 		while (cont < quantAlunos) {
-			codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matrícula"));
+			codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
 			nome = JOptionPane.showInputDialog(null, "Digite o nome");
 			listaAlunos.add(new Aluno(codigo, nome));
 			cont++;
@@ -68,7 +68,7 @@ public class Aplicacao {
 	}
 	
 	public static void atualizarAluno() throws Exception {
-		int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matrícula"));
+		int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
 		String nome = JOptionPane.showInputDialog(null, "Digite o nome");
 		int inativo = 1;
 		Aluno a = new Aluno();

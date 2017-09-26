@@ -9,6 +9,8 @@ public class Arquivo {
 	private String indexador;
 	private static String dados;
 	private static long ponteiroAnterior;
+	private static long ponteiroAnteriorIndex;
+	private static final int TAM_INDEX = Integer.BYTES + Integer.BYTES + Long.BYTES;
 
 	public Arquivo() throws Exception {
 		this.db = "bd.txt";
@@ -16,7 +18,7 @@ public class Arquivo {
 	}
 
 	/**
-	 * Método para pegar arquivo do dispositivo utilizado na execução
+	 * Metodo para pegar arquivo do dispositivo utilizado na execuï¿½ï¿½o
 	 * 
 	 * @return
 	 * @throws Exception
@@ -33,8 +35,8 @@ public class Arquivo {
 	}*/
 
 	/**
-	 * Método para setar novo registro no arquivo, caso receba como parâmetro um
-	 * seek diferente de -1 irá sobrescrever os dados da posição passada
+	 * Metodo para setar novo registro no arquivo, caso receba como parï¿½metro um
+	 * seek diferente de -1 ira sobrescrever os dados da posiï¿½ï¿½o passada
 	 * 
 	 * @param r
 	 * @param seek
@@ -44,6 +46,7 @@ public class Arquivo {
 		RandomAccessFile file = new RandomAccessFile(db, "rw");
 		if (seek == -1) {
 			seek = file.length();
+			criarIndex(new Index(r.getCodigo(), seek), -1);
 			file.seek(seek);
 		} else {
 			file.seek(seek);
@@ -52,11 +55,10 @@ public class Arquivo {
 		file.writeInt(r.getByteArray().length);
 		file.write(r.getByteArray());
 		file.close();
-		criarIndex(new Index(r.getCodigo(), seek));
 	}
 
 	/**
-	 * Método irá retornar string com os registros do arquivo
+	 * Mï¿½todo irï¿½ retornar string com os registros do arquivo
 	 * 
 	 * @return
 	 * @throws IOException
@@ -69,7 +71,7 @@ public class Arquivo {
 			file.read(b);
 			Aluno aluno = new Aluno();
 			aluno.setByteArray(b);
-			if (aluno != null) {
+			if (aluno != null && aluno.getStatus() != 1) {
 				if (dados == null) {
 					dados = aluno.toString();
 				} else {
@@ -81,11 +83,14 @@ public class Arquivo {
 		return dados;
 	}
 	
-	public void criarIndex(Index i) throws IOException {
+	public void criarIndex(Index i, long seek) throws IOException {
 		RandomAccessFile rf = new RandomAccessFile(this.indexador, "rw");
 		long posicaoFinal = rf.length();
-		rf.seek(posicaoFinal);
+		if(seek != -1){
+			posicaoFinal = seek;
+		}
 		
+		rf.seek(posicaoFinal);		
 		rf.write(i.getByteArray());
 		rf.close();
 	}
@@ -96,11 +101,13 @@ public class Arquivo {
 		try {
 			RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
 			while(rf.getFilePointer() < rf.length()) {
-				byte[] b = new byte[Integer.BYTES + Long.BYTES];
+				byte[] b = new byte[TAM_INDEX];
 				rf.read(b);
 				i = new Index();
 				i.setByteArray(b);
-				dadosIndex += i.toString();
+				if(i.getLapide() != 1){
+					dadosIndex += i.toString();
+				}
 			}
 			
 			rf.close();
@@ -112,7 +119,7 @@ public class Arquivo {
 	}
 
 	/**
-	 * Método para retornar objeto caso seja localizado no registro
+	 * Mï¿½todo para retornar objeto caso seja localizado no registro
 	 * 
 	 * @param codigo
 	 * @return
@@ -120,7 +127,8 @@ public class Arquivo {
 	 */
 	public Aluno getRegistro(int codigo) throws Exception {
 		RandomAccessFile file = new RandomAccessFile(db, "rw");
-		long seek = getPonteiroRegistro(codigo);
+		Index i = getIndexbyCode(codigo);
+		long seek = (i == null) ? -1 : i.getPosicaoArquivo();
 		if (seek != -1) {
 			file.seek(seek);
 			int tamanho = file.readInt();
@@ -130,51 +138,45 @@ public class Arquivo {
 			aluno.setByteArray(b);
 			return aluno;
 		} else {
-			throw new Exception("Registro não localizado");
+			throw new Exception("Registro nï¿½o localizado");
 		}
 	}
-
-	/**
-	 * Método retorna ponteiro do registro pesquisado por código
-	 * 
-	 * @param codigo
-	 * @return
-	 * @throws IOException
-	 */
-	public long getPonteiroRegistro(int codigo) throws IOException {
-		RandomAccessFile file = new RandomAccessFile(db, "r");
-		while (file.getFilePointer() < file.length()) {
-			ponteiroAnterior = file.getFilePointer();
-			int tamanho = file.readInt();
-			byte[] b = new byte[tamanho];
-			file.read(b);
-			Aluno aluno = new Aluno();
-			aluno.setByteArray(b);
-			if (aluno != null) {
-				if (aluno.getCodigo() == codigo) {
-					return ponteiroAnterior;
-				}
+	
+	public Index getIndexbyCode (int code) throws IOException{
+		Index i = new Index();
+		byte[] b = new byte[TAM_INDEX];
+		RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
+		
+		while(rf.getFilePointer() < rf.length()){
+			Arquivo.ponteiroAnteriorIndex = rf.getFilePointer();
+			rf.read(b);
+			i.setByteArray(b);
+			if(i.getCodigo() == code){
+				Arquivo.ponteiroAnterior = i.getPosicaoArquivo();
+				return i;
 			}
 		}
-		file.close();
-		return -1;
+		return i;
 	}
 
 	/**
-	 * Método para setar lápide como inativa em determinado registro que será
+	 * Mï¿½todo para setar lï¿½pide como inativa em determinado registro que serï¿½
 	 * pesquisado pelo codigo
 	 * 
 	 * @param codigo
 	 * @throws Exception
 	 */
 	public void inativarRegistro(int codigo) throws Exception {
+		Index i = getIndexbyCode(codigo);
 		Aluno a = getRegistro(codigo);
+		i.setLapide(1);
 		a.setStatus(1);
 		criarRegistro(a, ponteiroAnterior);
+		criarIndex(i, ponteiroAnteriorIndex);
 	}
 	
 	/**
-	 * Método para setar lápide como ativa em determinado registro que será
+	 * Mï¿½todo para setar lï¿½pide como ativa em determinado registro que serï¿½
 	 * pesquisado pelo codigo
 	 * 
 	 * @param codigo
@@ -182,13 +184,16 @@ public class Arquivo {
 	 */
 	public void ativarRegistro(int codigo) throws Exception {
 		Aluno a = getRegistro(codigo);
+		Index i = getIndexbyCode(codigo);
 		a.setStatus(0);
+		i.setLapide(0);
 		criarRegistro(a, ponteiroAnterior);
+		criarIndex(i, ponteiroAnteriorIndex);
 	}
 
 	/**
-	 * Método para atualizar um registro, ele setará lápide no registro anterior e
-	 * criará um novo no arquivo na última posição
+	 * Mï¿½todo para atualizar um registro, ele setarï¿½ lï¿½pide no registro anterior e
+	 * criarï¿½ um novo no arquivo na ï¿½ltima posiï¿½ï¿½o
 	 * 
 	 * @param r
 	 * @param codigo
