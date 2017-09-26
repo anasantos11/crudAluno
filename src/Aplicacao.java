@@ -1,3 +1,6 @@
+/**
+ * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ */
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class Aplicacao {
 				JOptionPane.showMessageDialog(null, arquivo.listarRegistros(), "Alunos cadastrados",
 						JOptionPane.INFORMATION_MESSAGE);
 				
-				JOptionPane.showMessageDialog(null, arquivo.listarIndexes(), "INdexes cadastrados",
+				JOptionPane.showMessageDialog(null, arquivo.listarIndexes(), "Indexes cadastrados",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
@@ -75,7 +78,7 @@ public class Aplicacao {
 		a.setCodigo(codigo);
 		a.setString(nome);
 		a.setStatus(inativo);
-		arquivo.atualizarRegistro(a, 2);
+		//arquivo.atualizarRegistro(a, 2);
 		
 	}
 }

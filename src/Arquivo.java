@@ -1,15 +1,16 @@
-
+/**
+ * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ */
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import javax.swing.JFileChooser;
 
 public class Arquivo {
 	private String db;
 	private String indexador;
-	private static String dados;
 	private static long ponteiroAnterior;
 	private static long ponteiroAnteriorIndex;
+	public static Index teste;
 	private static final int TAM_INDEX = Integer.BYTES + Integer.BYTES + Long.BYTES;
 
 	public Arquivo() throws Exception {
@@ -18,25 +19,9 @@ public class Arquivo {
 	}
 
 	/**
-	 * Metodo para pegar arquivo do dispositivo utilizado na execuï¿½ï¿½o
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-
-	/*public static String pegarArquivo() throws Exception {
-		JFileChooser arquivo = new JFileChooser();
-		int retorno = arquivo.showOpenDialog(null);
-		if (retorno == JFileChooser.CANCEL_OPTION) {
-			throw new Exception("Processo cancelado");
-		}
-		String fileName = arquivo.getSelectedFile().getPath();
-		return fileName;
-	}*/
-
-	/**
-	 * Metodo para setar novo registro no arquivo, caso receba como parï¿½metro um
-	 * seek diferente de -1 ira sobrescrever os dados da posiï¿½ï¿½o passada
+	 * Metodo para inserir novo registro no arquivo e atualizar o indice primario.
+	 * Caso receba como parametro um seek diferente de -1 ira sobrescrever os dados
+	 * na posicao passada
 	 * 
 	 * @param r
 	 * @param seek
@@ -51,20 +36,40 @@ public class Arquivo {
 		} else {
 			file.seek(seek);
 		}
-		
+
 		file.writeInt(r.getByteArray().length);
 		file.write(r.getByteArray());
 		file.close();
 	}
 
 	/**
-	 * Mï¿½todo irï¿½ retornar string com os registros do arquivo
+	 * Método para criar indice primario dos registros de alunos
+	 * 
+	 * @param i
+	 * @param seek
+	 * @throws IOException
+	 */
+
+	public void criarIndex(Index i, long seek) throws IOException {
+		RandomAccessFile rf = new RandomAccessFile(this.indexador, "rw");
+		long posicaoFinal = rf.length();
+		if (seek != -1) {
+			posicaoFinal = seek;
+		}
+		rf.seek(posicaoFinal);
+		rf.write(i.getByteArray());
+		rf.close();
+	}
+
+	/**
+	 * Metodo retornara string com os registros do arquivo
 	 * 
 	 * @return
 	 * @throws IOException
 	 */
 	public String listarRegistros() throws IOException {
 		RandomAccessFile file = new RandomAccessFile(db, "r");
+		String dados = null;
 		while (file.getFilePointer() < file.length()) {
 			int tamanho = file.readInt();
 			byte[] b = new byte[tamanho];
@@ -82,34 +87,28 @@ public class Arquivo {
 		file.close();
 		return dados;
 	}
-	
-	public void criarIndex(Index i, long seek) throws IOException {
-		RandomAccessFile rf = new RandomAccessFile(this.indexador, "rw");
-		long posicaoFinal = rf.length();
-		if(seek != -1){
-			posicaoFinal = seek;
-		}
-		
-		rf.seek(posicaoFinal);		
-		rf.write(i.getByteArray());
-		rf.close();
-	}
-	
+
+	/**
+	 * Metodo retornara string com os dados do indice primario
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public String listarIndexes() throws IOException {
 		Index i = null;
 		String dadosIndex = "";
 		try {
 			RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
-			while(rf.getFilePointer() < rf.length()) {
+			while (rf.getFilePointer() < rf.length()) {
 				byte[] b = new byte[TAM_INDEX];
 				rf.read(b);
 				i = new Index();
 				i.setByteArray(b);
-				if(i.getLapide() != 1){
+				if (i.getLapide() != 1) {
 					dadosIndex += i.toString();
 				}
 			}
-			
+
 			rf.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -119,15 +118,17 @@ public class Arquivo {
 	}
 
 	/**
-	 * Mï¿½todo para retornar objeto caso seja localizado no registro
+	 * Metodo para retornar objeto Aluno caso seja localizado no registro
 	 * 
 	 * @param codigo
 	 * @return
 	 * @throws Exception
 	 */
 	public Aluno getRegistro(int codigo) throws Exception {
+		@SuppressWarnings("resource")
 		RandomAccessFile file = new RandomAccessFile(db, "rw");
 		Index i = getIndexbyCode(codigo);
+		Arquivo.teste = i;
 		long seek = (i == null) ? -1 : i.getPosicaoArquivo();
 		if (seek != -1) {
 			file.seek(seek);
@@ -138,69 +139,64 @@ public class Arquivo {
 			aluno.setByteArray(b);
 			return aluno;
 		} else {
-			throw new Exception("Registro nï¿½o localizado");
+			throw new Exception("Registro nao localizado");
 		}
 	}
-	
-	public Index getIndexbyCode (int code) throws IOException{
+
+	/**
+	 * Metodo para buscar posicao de um determinado registro pela matricula
+	 * utilizando o indice primario
+	 * 
+	 * @param code
+	 * @return
+	 * @throws IOException
+	 */
+	public Index getIndexbyCode(int code) throws IOException {
 		Index i = new Index();
 		byte[] b = new byte[TAM_INDEX];
+		@SuppressWarnings("resource")
 		RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
-		
-		while(rf.getFilePointer() < rf.length()){
+		while (rf.getFilePointer() < rf.length()) {
 			Arquivo.ponteiroAnteriorIndex = rf.getFilePointer();
 			rf.read(b);
 			i.setByteArray(b);
-			if(i.getCodigo() == code){
+			if (i.getCodigo() == code && i.getLapide() != 1) {
 				Arquivo.ponteiroAnterior = i.getPosicaoArquivo();
 				return i;
 			}
 		}
-		return i;
+		return null;
 	}
 
 	/**
-	 * Mï¿½todo para setar lï¿½pide como inativa em determinado registro que serï¿½
+	 * Metodo para setar lapide como inativa em determinado registro que sera
 	 * pesquisado pelo codigo
 	 * 
 	 * @param codigo
 	 * @throws Exception
 	 */
-	public void inativarRegistro(int codigo) throws Exception {
-		Index i = getIndexbyCode(codigo);
-		Aluno a = getRegistro(codigo);
-		i.setLapide(1);
+	public void inativarRegistro(Registro a) throws Exception {
+		/*Index i = getIndexbyCode(codigo);
+		if(i == null) {
+			throw new Exception ("Não foi encontrado o registro no índice.");
+		}
+		Aluno a = getRegistro(codigo);*/
+		Arquivo.teste.setLapide(1);
 		a.setStatus(1);
-		criarRegistro(a, ponteiroAnterior);
-		criarIndex(i, ponteiroAnteriorIndex);
-	}
-	
-	/**
-	 * Mï¿½todo para setar lï¿½pide como ativa em determinado registro que serï¿½
-	 * pesquisado pelo codigo
-	 * 
-	 * @param codigo
-	 * @throws Exception
-	 */
-	public void ativarRegistro(int codigo) throws Exception {
-		Aluno a = getRegistro(codigo);
-		Index i = getIndexbyCode(codigo);
-		a.setStatus(0);
-		i.setLapide(0);
-		criarRegistro(a, ponteiroAnterior);
-		criarIndex(i, ponteiroAnteriorIndex);
+		criarRegistro(a, Arquivo.ponteiroAnterior);
+		criarIndex(teste, Arquivo.ponteiroAnteriorIndex);
 	}
 
 	/**
-	 * Mï¿½todo para atualizar um registro, ele setarï¿½ lï¿½pide no registro anterior e
-	 * criarï¿½ um novo no arquivo na ï¿½ltima posiï¿½ï¿½o
+	 * Metodo para atualizar um registro, ele colocara lapide no registro
+	 * anterior e criara um novo no arquivo na ultima posicao
 	 * 
 	 * @param r
 	 * @param codigo
 	 * @throws Exception
 	 */
-	public void atualizarRegistro(Registro r, int codigo) throws Exception {
-		inativarRegistro(codigo);
-		criarRegistro(r, -1);
+	public void atualizarRegistro(Registro anterior, Registro novo, int codigo) throws Exception {
+		inativarRegistro(anterior);
+		criarRegistro(novo, -1);
 	}
 }

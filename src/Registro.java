@@ -1,4 +1,6 @@
-
+/**
+ * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ */
 import java.io.IOException;
 
 @SuppressWarnings("rawtypes")

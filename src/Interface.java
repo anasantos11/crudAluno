@@ -1,4 +1,6 @@
-
+/**
+ * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ */
 
 import java.awt.Color;
 import java.awt.EventQueue;
