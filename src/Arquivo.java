@@ -58,6 +58,29 @@ public class Arquivo {
 		file.write(r.getByteArray());
 		file.close();
 	}
+	
+	public void criarBase() throws IOException{
+		RandomAccessFile nomes = new RandomAccessFile("nomes.txt", "rw");
+		//RandomAccessFile matriculas = new RandomAccessFile("matriculas.txt", "rw");
+		String [] registro = null;
+		
+		Aluno a = null;
+		
+		for(int i = 0; i < 209; i ++){
+			registro = nomes.readLine().split(";");
+			a = new Aluno(
+					Integer.parseInt(registro[0]),
+					registro[1],
+					0,
+					Integer.parseInt(registro[2]),
+					registro[4],
+					Double.parseDouble(registro[3]));
+			criarRegistro(a, -1);
+		}
+		
+		nomes.close();
+		//matriculas.close();
+	}
 
 	/**
 	 * Método para criar indice primario dos registros de alunos
@@ -137,7 +160,7 @@ public class Arquivo {
 		return dadosIndex;
 	}
 	
-	public void imprimirDados() throws Exception {
+	public String imprimirDados() throws Exception {
 		if(dadosRegistro == null) {
 			getDados().forEach(x ->{
 				if (dadosRegistro == null) {
@@ -148,7 +171,8 @@ public class Arquivo {
 			});
 		
 		}		
-		JOptionPane.showMessageDialog(null, dadosRegistro);
+		//JOptionPane.showMessageDialog(null, dadosRegistro);
+		return dadosRegistro;
 	}
 	
 	/**
@@ -272,10 +296,10 @@ public class Arquivo {
 			throw new Exception ("Não foi encontrado o registro no índice.");
 		}
 		Aluno a = getRegistro(codigo);*/
-		Arquivo.teste.setLapide(1);
+		indice.setLapide(1);
 		a.setStatus(1);
 		criarRegistro(a, Arquivo.ponteiroAnterior);
-		criarIndex(teste, Arquivo.ponteiroAnteriorIndex);
+		criarIndex(indice, Arquivo.ponteiroAnteriorIndex);
 	}
 
 	/**

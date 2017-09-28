@@ -1,0 +1,209 @@
+26290;Sarita Adriano Camargo;53;56;Engenharia de software
+96113;Paulina Aleixo Jesus;58;8;Ciencia da computacao
+45168;Barnabe Ludovico Filipe;21;83;Medicina
+21287;Lino Diana Belchiorinho;30;27;Direito
+26049;Hedviges Adelia Agueda;40;9;Adminstracao
+92329;Eunice Renato Fontoura;42;63;Psicologoa
+41521;Magali Sebastiao Bettencourt;45;76;Historia
+61396;Leonir Heriberto Santos;23;9;Geografia
+17445;Germano Fernando Castilho;59;23;Marketing
+31495;Emilio Poliana Viegas;25;96;Ciencias biologicas
+59384;Caim Josias Lacerda;38;83;Engenharia de software
+82218;Gil Clotilde Sa;38;26;Ciencia da computacao
+27291;Veridiana Gloria Castilhos;50;15;Medicina
+38175;Paulino Helio Carneiro;52;98;Direito
+31347;Giovana Cassia Proenca;38;49;Adminstracao
+12015;Leonilde Crispim Paz;23;67;Psicologoa
+94702;Mamede Ferdinando Branco;37;60;Historia
+89677;Calisto Emanuel Toledo;42;62;Geografia
+26615;Cristiano Gisela Cidreira;30;38;Marketing
+27799;Tairine Emilio Barata;42;40;Ciencias biologicas
+16789;Isilda Plinio Nascimento;54;41;Engenharia de software
+73675;Eva Garibaldo Rodovalho;31;64;Ciencia da computacao
+67087;Corina Arnaldo Canadas;55;25;Medicina
+61486;Benedita Viriato Roriz;43;6;Direito
+80828;Firmino Melissa Taveiros;48;98;Adminstracao
+54723;Almor Glauber Guilheiro;22;22;Psicologoa
+68968;Aguinaldo Silverio Reboucas;62;82;Historia
+23171;Custodio Bartolomeu Lamego;70;73;Geografia
+77450;Palo Clotilde Cachao;18;46;Marketing
+76798;Benedito Nicolas Siqueira;52;0;Ciencias biologicas
+86323;Mario Samuel Bacelar;35;50;Engenharia de software
+12080;Vanessa Valentina Fortunato;44;85;Ciencia da computacao
+31277;Rodrigo Benedito Teodoro;45;67;Medicina
+80276;Hermano Madalena Valentim;53;33;Direito
+61819;Paula Alipio Silvestre;55;98;Adminstracao
+40053;Amandio Leticia Borba;63;70;Psicologoa
+14938;Renata Zuriel Goulart;51;15;Historia
+58828;Roseli Angelo Simoes;25;88;Geografia
+89624;Emiliana Candido Lisboa;59;22;Marketing
+32516;Teodorico Lazaro Terra;53;17;Ciencias biologicas
+61073;Ezequiel Germana Taborda;22;71;Engenharia de software
+86541;Natalia Valentina Mendonca;67;73;Ciencia da computacao
+36510;Tercio Quintino Figueiro;25;12;Medicina
+23707;Ricardina Greice Bernardes;43;80;Direito
+21167;Ivo Ifigenia Verissimo;33;69;Adminstracao
+82812;Geraldo Levi Mexia;45;5;Psicologoa
+18204;Jadir Aires Marmou;66;25;Historia
+86796;Galindo Levindo Avelar;49;76;Geografia
+46786;Justino Estanislau Mansilha;25;42;Marketing
+50262;Lavinia Sara Palha;54;72;Ciencias biologicas
+91609;Eva Sabina Padilha;45;61;Engenharia de software
+92409;Geraldina Aguinaldo Couto;51;5;Ciencia da computacao
+61055;Eva Lucrecia Rodrigues;29;10;Medicina
+21788;Ligia Moises Damasceno;48;80;Direito
+56889;Telma Evandro Carvalhal;53;68;Adminstracao
+24749;Henriqueta Adao Avelar;55;82;Psicologoa
+94883;Amilcar Jadir Lameira;36;42;Historia
+78083;Cristiana Aguinaldo Feijo;62;37;Geografia
+32037;Elsa Abel Matos;28;46;Marketing
+43446;Mamede Renata Patricio;31;5;Ciencias biologicas
+8126;Giovana Claudia Carromeu;62;5;Engenharia de software
+53811;Goncalo Joaquina Malta;65;19;Ciencia da computacao
+47627;Gabriel Lucilia Leal;26;42;Medicina
+26615;Ruben Jorge Nunes;35;29;Direito
+96550;Maura Vania Sarmento;26;59;Adminstracao
+63680;Guadalupe Vinicius Reis;50;49;Psicologoa
+43477;Josue Adao Outeiro;35;47;Historia
+48578;Evaristo Vitor Doutis;18;59;Geografia
+51083;Sebastiao Fiona Fonseca;26;28;Marketing
+93356;Galindo Constanca Viana;37;26;Ciencias biologicas
+91587;Eladio Vanderlei Melo;38;79;Engenharia de software
+48845;Telo Julio Sampaio;60;31;Ciencia da computacao
+58120;Aurora Alzira Valido;60;75;Medicina
+35693;Odete Ivo Mansilha;22;9;Direito
+81266;Timoteo Laurinda Vides;30;63;Adminstracao
+38239;Edite Leia Veloso;46;27;Psicologoa
+2575;Vicente Ondina Fortunato;65;11;Historia
+11150;Ivo Tome Pederneiras;29;42;Geografia
+64131;Delio Magda Jorge;68;77;Marketing
+14186;Zulmira Eunice Areosa;60;50;Ciencias biologicas
+20890;Graciano Micaela Vilela;42;83;Engenharia de software
+18574;Almerinda Luana Jacome;23;87;Ciencia da computacao
+14868;Fernanda Alexandre Medeiros;39;99;Medicina
+93531;Adosindo Lineu Lemos;19;95;Direito
+47117;Zozimo Hermano Graca;48;68;Adminstracao
+5448;Ubaldo Deise Gama;47;39;Psicologoa
+23962;Marlene Tobias Benevides;46;41;Historia
+61503;Ivete Lidia Valadares;54;17;Geografia
+31989;Tadeu Bras Domingos;54;42;Marketing
+32178;Gedeao Levi Lousado;31;28;Ciencias biologicas
+79969;Dora Rosa Viana;54;48;Engenharia de software
+21586;Francisca Antero Malafaia;35;13;Ciencia da computacao
+7350;Vinicius Joao Morais;31;3;Medicina
+99908;Zubaida Debora Miranda;28;88;Direito
+83615;Zuleide Eduardo Brites;34;22;Adminstracao
+19333;Gineculo Ricardina Belchiorinho;65;29;Psicologoa
+60896;Belmiro Gina Pocas;39;34;Historia
+27855;Estela Olivio Gabeira;53;15;Geografia
+9573;Otilia Margarida Bulhoes;55;68;Marketing
+89015;Patricia Afonso Horta;24;20;Ciencias biologicas
+50767;Armanda Flavio Brandao;46;79;Engenharia de software
+33068;Luis Palmira Henriques;41;74;Ciencia da computacao
+47715;Deolindo Renan Brasil;51;93;Medicina
+55769;Claudio Gavio Pinhal;63;80;Direito
+39820;Paula Manuela Noroes;40;20;Adminstracao
+97665;Donato Roseli Cortes;52;47;Psicologoa
+76212;Bartolomeu Atila Chagas;40;91;Historia
+39049;Vanda Oriana Regalado;28;49;Geografia
+7764;Judas Gerardo Xavier;54;3;Marketing
+98157;Isabel Vitoria Marinho;55;36;Ciencias biologicas
+48817;Filomena Dirceu Rijo;27;91;Engenharia de software
+84589;Rudi Teresina Carreira;63;89;Ciencia da computacao
+92009;Ilidio Beatriz Regueira;64;21;Medicina
+70418;Belmifer Ilma Ferreira;59;96;Direito
+61387;Luzia Nestor Palha;65;9;Adminstracao
+11675;Neuza Claudia Neres;37;90;Psicologoa
+250;Gui Basilio Carvalho;58;90;Historia
+62411;Zuleide Maxima Lencastre;36;55;Geografia
+71619;Vanderlei Horacio Brasil;42;62;Marketing
+37109;Quintiliana Evangelista Neiva;26;98;Ciencias biologicas
+60548;Angelica Jorge Alvaro;68;57;Engenharia de software
+69856;Fernao Severino Amaral;52;69;Ciencia da computacao
+48898;Bernardina Gabriel Tavares;50;69;Medicina
+80321;Marcela Jeremias Noite;46;26;Direito
+48114;Diodete Ferdinando Doutis;59;75;Adminstracao
+12733;Silverio Serafim Girao;49;46;Psicologoa
+91915;Roquita Mauro Guilheiro;56;35;Historia
+40077;Debora Quiterio Fontoura;44;41;Geografia
+96699;Viriato Feliciano Sacramento;69;1;Marketing
+20253;Telo Erica Xavier;27;86;Ciencias biologicas
+70979;Marilda Selma Graca;20;33;Engenharia de software
+55635;Claudia Teresa Castanheira;27;66;Ciencia da computacao
+75046;Roque Jadir Canela;28;77;Medicina
+68627;Donata Sancha Caires;27;83;Direito
+97572;Xerxes Celestino Barroso;24;46;Adminstracao
+23020;Rodrigo Maria Sabala;67;68;Psicologoa
+58302;Silvano Mariana Fontoura;44;23;Historia
+62187;Carlos Lourenco Granja;22;55;Geografia
+68891;Berengario Angela Martins;53;33;Marketing
+40702;Santiago Gilberto Peixoto;38;99;Ciencias biologicas
+17038;Milu Germana Homem;50;81;Engenharia de software
+71427;Evangelista Vanda Sales;33;90;Ciencia da computacao
+13216;Quiteria Gustavo Goulart;24;28;Medicina
+19656;Ana Tania Cesar;51;2;Direito
+84461;Mauro Milena Grangeia;33;74;Adminstracao
+13645;Rosaura Valentina Coutinho;24;34;Psicologoa
+82443;Germano Branca Marroquim;40;25;Historia
+19296;Alexandra Casimiro Mangueira;25;77;Geografia
+3400;Clementina Vania Cesario;48;71;Marketing
+13488;Alberto Taina Ruas;44;90;Ciencias biologicas
+75606;Flor Jonas Mexia;34;66;Engenharia de software
+53921;Cristovao Amilcar Gaspar;45;64;Ciencia da computacao
+35653;Neuza Manuel Calheiros;24;11;Medicina
+83256;Otavio Flor Barreto;18;24;Direito
+97256;Sandra Lucinda Ferraz;51;51;Adminstracao
+72704;Glauco Benedita Zagalo;60;65;Psicologoa
+46873;Nicanor Virgilio Gentil;63;62;Historia
+75252;Soraia Jorge Borja;36;3;Geografia
+92389;Carine Israel Azeredo;32;92;Marketing
+13763;Basilio Gerson Furtado;63;91;Ciencias biologicas
+58773;Guadalupe Israel Aguiar;70;27;Engenharia de software
+9352;Gabriela Vanderlei Holanda;32;72;Ciencia da computacao
+20114;Graciano Palo Resende;55;92;Medicina
+31182;Ivete Rodolfo Moura;23;68;Direito
+86610;Porfirio Judas Espargosa;57;60;Adminstracao
+47251;Fernando Maria Mont'Alverne;35;80;Psicologoa
+65995;Normando Ana Filgueiras;69;73;Historia
+2041;Oriana Manuel Valim;19;88;Geografia
+54516;Eloi Vinicius Camara;60;74;Marketing
+32105;Francisco Vania Pimenta;49;44;Ciencias biologicas
+99284;Mara Gedeao Couto;24;94;Engenharia de software
+15224;Balduino Lucia Castelhano;65;82;Ciencia da computacao
+25624;Francisca Edmundo Boga;25;4;Medicina
+14942;Cristiano Guiomar Varao;42;44;Direito
+81827;Leonor Hermano Seixas;58;75;Adminstracao
+3626;Lara Constanca Bogado;48;61;Psicologoa
+42542;Vasco Asi Mena;43;1;Historia
+41893;Heriberto Higino Maia;57;32;Geografia
+79190;Tadeu Caetano Guedes;19;45;Marketing
+40637;Enilda Celeste Linhares;20;28;Ciencias biologicas
+28413;Helena Joaquim Vasconcelos;57;81;Engenharia de software
+50126;Samara Aline Sobreira;64;66;Ciencia da computacao
+58011;Vanessa Fernando Colaco;55;16;Medicina
+12734;Carine Borras Tavares;64;57;Direito
+25323;Amanda Epaminondas Silva;54;60;Adminstracao
+75029;Zubaida Zelia Pamplona;63;94;Psicologoa
+81674;Jadir Lineu Canica;55;10;Historia
+52612;Elias Itala Lucas;61;53;Geografia
+67564;Americo Ovidio Estrela;23;57;Marketing
+64542;Tiburcio Neusa Camarinho;23;91;Ciencias biologicas
+83390;Brenda Ovidio Bonilha;61;53;Engenharia de software
+42361;Ester Feliciano Lima;30;45;Ciencia da computacao
+60208;Fabiano Adelaide Tavora;63;78;Medicina
+71916;Garibaldo Germana Modesto;52;61;Direito
+93920;Gualdim Domingos Gomes;40;5;Adminstracao
+1269;Evaristo Gertrudes Imperial;61;67;Psicologoa
+62439;Claudio Luzia Barateiro;57;78;Historia
+66073;Bernardino Luana Guilheiro;30;21;Geografia
+53308;Barnabe Valdeci Figueiredo;63;22;Marketing
+20792;Serafina Bras Parracho;65;16;Ciencias biologicas
+2369;Penelope Borras Mesquita;19;1;Engenharia de software
+76377;Dulce Querubina Pamplona;67;16;Ciencia da computacao
+23159;Caetana Fabio Vilarinho;39;61;Medicina
+67778;Armindo Mileide Mont'Alverne;56;18;Direito
+87779;Eurico Silvia Telinhos;40;53;Adminstracao
+87987;Ramao Sebastiao Paiva;22;65;Psicologoa
+87372;Ezequiel Helder Figueiro;35;71;Historia
+89830;Jaime Martim Guedes;70;61;Geografia
+81086;Angela Gina Cirne;63;7;Marketing

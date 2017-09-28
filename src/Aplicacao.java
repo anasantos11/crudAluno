@@ -15,6 +15,7 @@ public class Aplicacao {
 	public static void main(String[] args) throws Exception {
 		try {
 			arquivo = new Arquivo();
+			/*
 			List<Index> listaIndices = arquivo.getListIndexes();
 			System.out.println("Lista anterior: \n");
 			listaIndices.forEach( x ->{
@@ -26,11 +27,12 @@ public class Aplicacao {
 			System.out.println("Nova Lista: \n");
 			listaIndices.forEach( x ->{
 				System.out.println(x.toString());
-			});
+			});*/
 			
+			arquivo.criarBase();
 			
 			/*try {
-				pegarDadosAlunos();
+//				pegarDadosAlunos();
 //				Aluno bruna = new Aluno(58,"Daniela");
 //				arquivo.atualizarRegistro(bruna, 2);
 //				arquivo.pegarRegistroEspecifico(1);
@@ -65,7 +67,7 @@ public class Aplicacao {
 		while (cont < quantAlunos) {
 			codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
 			nome = JOptionPane.showInputDialog(null, "Digite o nome");
-			listaAlunos.add(new Aluno(codigo, nome));
+//			listaAlunos.add(new Aluno(codigo, nome));
 			cont++;
 		}
 

@@ -2,14 +2,25 @@
 /**
  * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
  */
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class App {
 	private static int quantAlunos;
+	private static int cont = 0 ;
+	private static int codigo = 0;
+	private static int idade = 0;
+	private static double notaMedia = 0;
+	private static String nome = "";
+	private static String curso = "";
 	private static List<Aluno> listaAlunos = new ArrayList<Aluno>();
 	private static Arquivo arquivo;
 
@@ -27,13 +38,14 @@ public class App {
 	public static void pegarDadosAlunos() {
 		quantAlunos = Integer
 				.parseInt(JOptionPane.showInputDialog(null, "Digite a quantidade de alunos que deseja cadastrar"));
-		int cont = 0;
-		int codigo;
-		String nome;
+		cont = 0;
 		while (cont < quantAlunos) {
 			codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
 			nome = JOptionPane.showInputDialog(null, "Digite o nome");
-			listaAlunos.add(new Aluno(codigo, nome));
+			idade = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a idade"));
+			curso = JOptionPane.showInputDialog(null, "Digite o nome do curso");
+			notaMedia = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a nota média"));
+			listaAlunos.add(new Aluno(codigo, nome, 0, idade, curso, notaMedia));
 			cont++;
 		}
 	}
@@ -48,19 +60,34 @@ public class App {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			});
-			arquivo.imprimirDados();
+			consultarRegistros();
 		}
 
 	}
 
-	public static void consultarIndices() {
+	public static void consultarIndices() throws IOException {
 		try {
-			JOptionPane.showMessageDialog(null, arquivo.listarIndexes(), "Indexes cadastrados",
-					JOptionPane.INFORMATION_MESSAGE);
+		JTextArea textArea = new JTextArea(arquivo.listarIndexes());
+		JScrollPane scrollPane = new JScrollPane(textArea); 
+		textArea.setEditable(false);
+		scrollPane.setPreferredSize( new Dimension( 350, 450 ) );
+		JOptionPane.showMessageDialog(null, scrollPane);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 		}
 	}
+	public static void consultarRegistros() throws IOException {
+		try {
+		JTextArea textArea = new JTextArea(arquivo.imprimirDados());
+		JScrollPane scrollPane = new JScrollPane(textArea); 
+		textArea.setEditable(false);
+		scrollPane.setPreferredSize( new Dimension( 800, 600 ) );
+		JOptionPane.showMessageDialog(null, scrollPane);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
 
 	public static Aluno buscarRegistroEspecifico() {
 		String y = "";
@@ -93,10 +120,16 @@ public class App {
 	public static void alterarRegistro() {
 		Aluno anterior = buscarRegistroEspecifico();
 		if (anterior != null) {
-			String nome = JOptionPane.showInputDialog(null, "Digite o nome");
+			nome = JOptionPane.showInputDialog(null, "Registro atual = " + anterior.getString() + "\n\n" + "Digite o nome");
+			idade = Integer.parseInt(JOptionPane.showInputDialog(null, "Registro atual = " + anterior.getIdade() + "\n\n" + "Digite a idade"));
+			curso = JOptionPane.showInputDialog(null, "Registro atual = " + anterior.getCurso() + "\n\n" + "Digite o nome do curso");
+			notaMedia = Double.parseDouble(JOptionPane.showInputDialog(null,  "Registro atual = " + anterior.getNotaMedia() + "\n\n" + "Digite a nota média"));
 			Aluno novoRegistro = new Aluno();
 			novoRegistro.setCodigo(anterior.getCodigo());
+			novoRegistro.setIdade(idade);
 			novoRegistro.setString(nome);
+			novoRegistro.setCurso(curso);
+			novoRegistro.setNotaMedia(notaMedia);
 
 			int resposta = JOptionPane.showConfirmDialog(null,
 					"Confirma alteração do registro: " + "\n\n" + "Registro anterior: " + anterior.toString() + "\n\n"
@@ -164,11 +197,15 @@ public class App {
 			JOptionPane.showMessageDialog(null, "Até logo !!!!");
 			return 0;
 		case 1: // Consultar Registros
-			arquivo.imprimirDados();
+			consultarRegistros();
 			menuPrograma(-1);
 			break;
 		case 2: // Buscar registro especifico
-				JOptionPane.showMessageDialog(null, "Registro buscado: " + "\n\n" +  buscarRegistroEspecifico().toString());
+			Aluno a = buscarRegistroEspecifico();
+			if(a != null) {
+				JOptionPane.showMessageDialog(null, "Registro buscado: " + "\n\n" +  a.toString());
+			}
+
 			menuPrograma(-1);
 			break;
 		case 3: // Consultar Indices
@@ -203,7 +240,7 @@ public class App {
 			Arquivo.setDadosRegistro(null);
 			Arquivo.setListaAlunos(null);
 			Arquivo.setListaIndices(null);
-			arquivo.imprimirDados();
+			consultarRegistros();
 			menuPrograma(-1);
 			break;
 		default:
