@@ -32,7 +32,6 @@ public class App {
 		}
 	}
 	
-	
 	/**
 	 * Menu para utilizacao do programa
 	 * @param escolha
@@ -54,7 +53,8 @@ public class App {
 						+ "\n  6  -  Criar Registro" 
 						+ "\n  7  -  Alterar Registro" 
 						+ "\n  8  -  Remover Registro"
-						+ "\n  9  -  Ordenar Registros \n");
+						+ "\n  9  -  Ordenar Registros Crescente "
+						+ "\n  10  -  Ordenar Registros Decrescente \n");
 		if (x == null) {
 			JOptionPane.showMessageDialog(null, "Encerrando programa...");
 			escolha = 0;
@@ -132,7 +132,18 @@ public class App {
 			menuPrograma(-1);
 			break;
 		case 9: // Ordenar Registros
-			arquivo.organizarIndice(TipoOrdenacao.Codigo);
+			arquivo.organizarIndice(TipoOrdenacao.CodigoCrescente);
+			Arquivo.setDadosRegistro(null);
+			Arquivo.setDadosRegistroLapide(null);
+			Arquivo.setDadosIndices(null);
+			Arquivo.setDadosIndicesLapide(null);
+			Arquivo.setListaAlunos(null);
+			Arquivo.setListaIndices(null);
+			consultarRegistrosSemLapide();
+			menuPrograma(-1);
+			break;
+		case 10: // Ordenar Registros
+			arquivo.organizarIndice(TipoOrdenacao.CodigoDecrescente);
 			Arquivo.setDadosRegistro(null);
 			Arquivo.setDadosRegistroLapide(null);
 			Arquivo.setDadosIndices(null);

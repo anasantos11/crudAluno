@@ -13,8 +13,10 @@ public class ComparatorAluno implements Comparator<Aluno> {
 	@Override
 	public int compare(Aluno person1, Aluno person2) {
 		switch (ordem) {
-		case Codigo:
+		case CodigoCrescente:
 			return person1.getCodigo().compareTo(person2.getCodigo());
+		case CodigoDecrescente:
+			return - person1.getCodigo().compareTo(person2.getCodigo());
 		case Nome:
 			return person1.getString().compareTo(person2.getString());
 		default:
