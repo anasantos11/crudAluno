@@ -348,10 +348,10 @@ public class Arquivo {
 
 	}
 
-	public static List<Aluno> getListaAlunos() {
-		return listaAlunos;
-	}
-
+	/**
+	 * Getters and Setters
+	 * @param listaAlunos
+	 */
 	public static void setListaAlunos(List<Aluno> listaAlunos) {
 		Arquivo.listaAlunos = listaAlunos;
 	}
