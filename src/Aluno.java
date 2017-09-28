@@ -11,9 +11,9 @@ public class Aluno implements Registro {
 	private Integer matricula;
 	private String nome;
 	private Integer inativo; // Inativo = 1 Ativo = 0
-	protected int idade;
-	protected String curso;
-	protected double notaMedia;
+	private int idade;
+	private String curso;
+	private double notaMedia;
 	
 	public Aluno() {
 		setStatus(0);
