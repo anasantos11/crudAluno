@@ -26,7 +26,6 @@ public class App {
 
 	public static void main(String[] args) throws Exception {
 		arquivo = new Arquivo();
-
 		if (args.length == 0) {
 			menuPrograma(-1);
 		} else {
@@ -60,7 +59,6 @@ public class App {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			});
-			consultarRegistros();
 		}
 
 	}
@@ -217,6 +215,7 @@ public class App {
 			Arquivo.setDadosRegistro(null);
 			Arquivo.setListaAlunos(null);
 			Arquivo.setListaIndices(null);
+			consultarRegistros();
 			menuPrograma(-1);
 			break;
 
@@ -225,6 +224,7 @@ public class App {
 			Arquivo.setDadosRegistro(null);
 			Arquivo.setListaAlunos(null);
 			Arquivo.setListaIndices(null);
+			consultarRegistros();
 			menuPrograma(-1);
 			break;
 
@@ -233,6 +233,7 @@ public class App {
 			Arquivo.setDadosRegistro(null);
 			Arquivo.setListaAlunos(null);
 			Arquivo.setListaIndices(null);
+			consultarRegistros();
 			menuPrograma(-1);
 			break;
 		case 7: // Ordenar Registros
