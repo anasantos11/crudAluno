@@ -8,9 +8,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Index {
-	private int codigo;
+	private Integer codigo;
 	private long posicaoArquivo;
-	private int lapide;
+	private Integer lapide;
 	
 	public Index(int codigo, long posicaoArquivo) {
 		setLapide(0);
@@ -41,7 +41,7 @@ public class Index {
 		this.posicaoArquivo = entrada.readLong();
 	}
 
-	public int getCodigo() {
+	public Integer getCodigo() {
 		return codigo;
 	}
 
@@ -57,7 +57,7 @@ public class Index {
 		this.posicaoArquivo = posicaoArquivo;
 	}
 
-	public int getLapide() {
+	public Integer getLapide() {
 		return lapide;
 	}
 

@@ -8,9 +8,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Aluno implements Registro {
-	protected int matricula;
-	protected String nome;
-	protected int inativo; // Inativo = 1 Ativo = 0
+	private Integer matricula;
+	private String nome;
+	private Integer inativo; // Inativo = 1 Ativo = 0
 
 	public Aluno() {
 		setStatus(0);
@@ -40,7 +40,7 @@ public class Aluno implements Registro {
 	}
 
 	@Override
-	public int getCodigo() {
+	public Integer getCodigo() {
 		return this.matricula;
 	}
 
@@ -71,16 +71,6 @@ public class Aluno implements Registro {
 		inativo = entrada.readInt();
 		matricula = entrada.readInt();
 		nome = entrada.readUTF();
-	}
-
-	@Override
-	public int compareTo(Object b) {
-		return matricula - ((Aluno) b).getCodigo();
-	}
-
-	@Override
-	public Aluno Clone() throws CloneNotSupportedException {
-		return ((Aluno) super.clone());
 	}
 
 	@Override

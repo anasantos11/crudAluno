@@ -119,11 +119,9 @@ public class Interface extends JFrame {
 		buttonListarClientes = new JButton("Listar Alunos");
 		buttonListarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					clientesCadastrados.setText(arquivo.listarRegistros());
-				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "", JOptionPane.WARNING_MESSAGE);
-				}
+
+					clientesCadastrados.setText("Não implementado");
+
 				
 			}
 		});

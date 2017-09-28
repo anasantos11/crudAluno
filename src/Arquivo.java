@@ -1,13 +1,30 @@
 /**
  * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
  */
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 
 public class Arquivo {
 	private String db;
 	private String indexador;
+	public static Index indice;
+	private static Aluno aluno;
+	private static byte[] b;
+	private static RandomAccessFile fileDB;
+	private static RandomAccessFile fileIndice;
+	private static List<Aluno> listaAlunos;
+	private static List<Index> listaIndices;
+	private static String dadosRegistro;
 	private static long ponteiroAnterior;
 	private static long ponteiroAnteriorIndex;
 	public static Index teste;
@@ -17,7 +34,7 @@ public class Arquivo {
 		this.db = "bd.txt";
 		this.indexador = "indexes.txt";
 	}
-
+		
 	/**
 	 * Metodo para inserir novo registro no arquivo e atualizar o indice primario.
 	 * Caso receba como parametro um seek diferente de -1 ira sobrescrever os dados
@@ -62,33 +79,6 @@ public class Arquivo {
 	}
 
 	/**
-	 * Metodo retornara string com os registros do arquivo
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public String listarRegistros() throws IOException {
-		RandomAccessFile file = new RandomAccessFile(db, "r");
-		String dados = null;
-		while (file.getFilePointer() < file.length()) {
-			int tamanho = file.readInt();
-			byte[] b = new byte[tamanho];
-			file.read(b);
-			Aluno aluno = new Aluno();
-			aluno.setByteArray(b);
-			if (aluno != null && aluno.getStatus() != 1) {
-				if (dados == null) {
-					dados = aluno.toString();
-				} else {
-					dados = dados + "\n" + aluno.toString();
-				}
-			}
-		}
-		file.close();
-		return dados;
-	}
-
-	/**
 	 * Metodo retornara string com os dados do indice primario
 	 * 
 	 * @return
@@ -116,7 +106,110 @@ public class Arquivo {
 		}
 		return dadosIndex;
 	}
+	
+	/**
+	 * Metodo retornara List<Index> com os dados do indice primario
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<Index> getListIndexes() throws Exception {
+		Index i = null;
+		List<Index> dadosIndex = new ArrayList<Index>();
+		try {
+			RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
+			while (rf.getFilePointer() < rf.length()) {
+				byte[] b = new byte[TAM_INDEX];
+				rf.read(b);
+				i = new Index();
+				i.setByteArray(b);
+				/*if (i.getLapide() != 1) {
+					dadosIndex.add(i);
+				}*/
+				dadosIndex.add(i);
+			}
 
+			rf.close();
+		} catch (FileNotFoundException e) {
+			throw new Exception(e.getMessage());
+			//return "Não existe nenhum index";
+		}
+		return dadosIndex;
+	}
+	
+	public void imprimirDados() throws Exception {
+		if(dadosRegistro == null) {
+			getDados().forEach(x ->{
+				if (dadosRegistro == null) {
+					dadosRegistro = x.toString();
+				} else {
+					dadosRegistro = dadosRegistro + "\n" + x.toString();
+				}
+			});
+		
+		}		
+		JOptionPane.showMessageDialog(null, dadosRegistro);
+	}
+	
+	/**
+	 * Metodo retornara List<Alunos> com os dados do arquivo
+	 * @return
+	 * @throws IOException
+	 */
+	public List<Aluno> getDados() throws IOException {
+		if(listaAlunos == null) {
+			indice = null;
+			fileIndice = new RandomAccessFile(this.indexador, "r");
+			fileDB = new RandomAccessFile(db, "r");
+			listaAlunos = new ArrayList<Aluno>();
+			while (fileIndice.getFilePointer() < fileIndice.length()) {
+				//Pegando posicao no indice
+				b = new byte[TAM_INDEX];
+				fileIndice.read(b);
+				indice = new Index();
+				indice.setByteArray(b);
+				/*if (indice.getLapide() != 1) {
+					dadosIndex.add(indice);
+				}*/
+				//Pula para posicao recuperada no indice
+				fileDB.seek(indice.getPosicaoArquivo());
+				//Pegando registro procurado
+				b = new byte[fileDB.readInt()];
+				fileDB.read(b);
+				aluno = new Aluno();
+				aluno.setByteArray(b);
+				listaAlunos.add(aluno);
+			}
+			fileIndice.close();
+			fileDB.close();
+		}
+		return listaAlunos;
+	}
+	/**
+	 * Metodo retornara List<Alunos> com os registros do arquivo
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public List<Aluno> getListRegistros() throws IOException {
+		if(listaAlunos == null) {
+			RandomAccessFile file = new RandomAccessFile(db, "r");
+			listaAlunos = new ArrayList<Aluno>();
+			while (file.getFilePointer() < file.length()) {
+				int tamanho = file.readInt();
+				byte[] b = new byte[tamanho];
+				file.read(b);
+				Aluno aluno = new Aluno();
+				aluno.setByteArray(b);
+				if (aluno != null) {
+					listaAlunos.add(aluno);
+				}
+			}
+			file.close();
+		}
+		return listaAlunos;
+	}
+	
 	/**
 	 * Metodo para retornar objeto Aluno caso seja localizado no registro
 	 * 
@@ -124,18 +217,16 @@ public class Arquivo {
 	 * @return
 	 * @throws Exception
 	 */
-	public Aluno getRegistro(int codigo) throws Exception {
-		@SuppressWarnings("resource")
-		RandomAccessFile file = new RandomAccessFile(db, "rw");
-		Index i = getIndexbyCode(codigo);
-		Arquivo.teste = i;
-		long seek = (i == null) ? -1 : i.getPosicaoArquivo();
+	public Aluno getRegistroByCode(int codigo) throws Exception {
+		indice = getIndexbyCode(codigo);
+		fileDB = new RandomAccessFile(db, "rw");
+		long seek = (indice == null) ? -1 : indice.getPosicaoArquivo();
 		if (seek != -1) {
-			file.seek(seek);
-			int tamanho = file.readInt();
-			byte[] b = new byte[tamanho];
-			file.read(b);
-			Aluno aluno = new Aluno();
+			fileDB.seek(seek);
+			int tamanho = fileDB.readInt();
+			b = new byte[tamanho];
+			fileDB.read(b);
+			aluno = new Aluno();
 			aluno.setByteArray(b);
 			return aluno;
 		} else {
@@ -152,17 +243,17 @@ public class Arquivo {
 	 * @throws IOException
 	 */
 	public Index getIndexbyCode(int code) throws IOException {
-		Index i = new Index();
-		byte[] b = new byte[TAM_INDEX];
-		@SuppressWarnings("resource")
-		RandomAccessFile rf = new RandomAccessFile(this.indexador, "r");
-		while (rf.getFilePointer() < rf.length()) {
-			Arquivo.ponteiroAnteriorIndex = rf.getFilePointer();
-			rf.read(b);
-			i.setByteArray(b);
-			if (i.getCodigo() == code && i.getLapide() != 1) {
-				Arquivo.ponteiroAnterior = i.getPosicaoArquivo();
-				return i;
+		fileIndice = new RandomAccessFile(this.indexador, "r");
+		indice = new Index();
+		b = new byte[TAM_INDEX];
+		
+		while (fileIndice.getFilePointer() < fileIndice.length()) {
+			Arquivo.ponteiroAnteriorIndex = fileIndice.getFilePointer();
+			fileIndice.read(b);
+			indice.setByteArray(b);
+			if (indice.getCodigo() == code && indice.getLapide() != 1) {
+				Arquivo.ponteiroAnterior = indice.getPosicaoArquivo();
+				return indice;
 			}
 		}
 		return null;
@@ -198,5 +289,84 @@ public class Arquivo {
 	public void atualizarRegistro(Registro anterior, Registro novo, int codigo) throws Exception {
 		inativarRegistro(anterior);
 		criarRegistro(novo, -1);
+	}
+	
+	
+	public void organizarArquivo(TipoOrdenacao tipo) throws IOException {
+		if(listaAlunos == null) {
+			listaAlunos = getDados();
+		}
+		ComparatorAluno comparator = new ComparatorAluno();
+		File tmpFile = File.createTempFile("arquivo", ".tmp");
+		RandomAccessFile temp = new RandomAccessFile(tmpFile, "rw");
+		long seek;
+		
+		comparator.tipoOrdenacao(tipo);
+		Collections.sort(listaAlunos, comparator); 
+		
+		for(Aluno r : listaAlunos) {
+			seek = tmpFile.length();
+			temp.seek(seek);
+			temp.writeInt(r.getByteArray().length);
+			temp.write(r.getByteArray());
+		}
+		FileChannel src = new FileInputStream(tmpFile).getChannel();
+		FileChannel dest = new FileOutputStream(db, false).getChannel();
+		dest.transferFrom(src, 0, src.size());
+		//FileOutputStream  arquivo = new FileOutputStream(db, false);
+
+		temp.close();
+		src.close();
+		dest.close();
+		tmpFile.deleteOnExit();
+		
+	}
+	
+	public void organizarIndice(TipoOrdenacao tipo) throws Exception {
+		if(listaIndices == null) {
+			listaIndices = getListIndexes();
+		}
+		ComparatorIndex comparator = new ComparatorIndex();
+		File tmpFile = File.createTempFile("arquivo", ".tmp");
+		RandomAccessFile temp = new RandomAccessFile(tmpFile, "rw");
+		long seek;
+		
+		comparator.tipoOrdenacao(tipo);
+		Collections.sort(listaIndices, comparator); 
+		
+		for(Index i : listaIndices) {
+			seek = tmpFile.length();
+			temp.seek(seek);
+			temp.write(i.getByteArray());
+		}
+		FileChannel src = new FileInputStream(tmpFile).getChannel();
+		FileChannel dest = new FileOutputStream(this.indexador, false).getChannel();
+		dest.transferFrom(src, 0, src.size());
+		//FileOutputStream  arquivo = new FileOutputStream(db, false);
+
+		temp.close();
+		src.close();
+		dest.close();
+		tmpFile.deleteOnExit();
+		
+	}
+	
+
+	public static List<Aluno> getListaAlunos() {
+		return listaAlunos;
+	}
+
+	public static void setListaAlunos(List<Aluno> listaAlunos) {
+		Arquivo.listaAlunos = listaAlunos;
+	}
+
+
+	public static void setDadosRegistro(String dadosRegistro) {
+		Arquivo.dadosRegistro = dadosRegistro;
+	}
+
+
+	public static void setListaIndices(List<Index> listaIndices) {
+		Arquivo.listaIndices = listaIndices;
 	}
 }

@@ -38,7 +38,7 @@ public class App {
 		}
 	}
 
-	public static void registrarAlunos() {
+	public static void registrarAlunos() throws Exception {
 		pegarDadosAlunos();
 		if (listaAlunos.size() > 0) {
 			listaAlunos.forEach(x -> {
@@ -48,17 +48,7 @@ public class App {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			});
-			consultarAlunos();
-		}
-
-	}
-
-	public static void consultarAlunos() {
-		try {
-			JOptionPane.showMessageDialog(null, arquivo.listarRegistros(), "Alunos cadastrados",
-					JOptionPane.INFORMATION_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+			arquivo.imprimirDados();
 		}
 
 	}
@@ -77,12 +67,6 @@ public class App {
 		int matricula = -1;
 		try {
 			while (y != null) {
-				/*
-				 * y = JOptionPane.showInputDialog(null,
-				 * "Digite o código a matrícula que deseja consultar." + "\n\n" +
-				 * "Lista dos alunos cadastrados:" + "\n\n" + arquivo.listarRegistros(),
-				 * "Buscar registro", JOptionPane.INFORMATION_MESSAGE);
-				 */
 				y = JOptionPane.showInputDialog(null, "Digite o código da matrícula que deseja consultar.",
 						"Buscar registro", JOptionPane.INFORMATION_MESSAGE);
 				if (y == null) {
@@ -92,12 +76,8 @@ public class App {
 				} else {
 					try {
 						matricula = Integer.parseInt(y);
-						/*
-						 * JOptionPane.showMessageDialog(null, "Registro buscado: " + "\n\n" +
-						 * arquivo.getRegistro(matricula).toString());
-						 */
 						y = null;
-						return arquivo.getRegistro(matricula);
+						return arquivo.getRegistroByCode(matricula);
 					} catch (NumberFormatException e) {
 						JOptionPane.showMessageDialog(null, "ATENÇÃO - Formato inválido!");
 					}
@@ -158,7 +138,7 @@ public class App {
 
 	}
 
-	public static int menuPrograma(int escolha) {
+	public static int menuPrograma(int escolha) throws Exception {
 		@SuppressWarnings("unused")
 		String dados = null;
 
@@ -184,14 +164,11 @@ public class App {
 			JOptionPane.showMessageDialog(null, "Até logo !!!!");
 			return 0;
 		case 1: // Consultar Registros
-			consultarAlunos();
+			arquivo.imprimirDados();
 			menuPrograma(-1);
 			break;
 		case 2: // Buscar registro especifico
-			Aluno a = buscarRegistroEspecifico();
-			if (a != null) {
-				JOptionPane.showMessageDialog(null, "Registro buscado: " + "\n\n" + a.toString());
-			}
+				JOptionPane.showMessageDialog(null, "Registro buscado: " + "\n\n" +  buscarRegistroEspecifico().toString());
 			menuPrograma(-1);
 			break;
 		case 3: // Consultar Indices
@@ -200,20 +177,33 @@ public class App {
 			break;
 		case 4: // Criar Registro
 			registrarAlunos();
+			Arquivo.setDadosRegistro(null);
+			Arquivo.setListaAlunos(null);
+			Arquivo.setListaIndices(null);
 			menuPrograma(-1);
 			break;
 
 		case 5: // Alterar Registro
 			alterarRegistro();
+			Arquivo.setDadosRegistro(null);
+			Arquivo.setListaAlunos(null);
+			Arquivo.setListaIndices(null);
 			menuPrograma(-1);
 			break;
 
-		case 6: // Remover Reg5istro
+		case 6: // Remover Registro
 			excluirRegistro();
+			Arquivo.setDadosRegistro(null);
+			Arquivo.setListaAlunos(null);
+			Arquivo.setListaIndices(null);
 			menuPrograma(-1);
 			break;
 		case 7: // Ordenar Registros
-			JOptionPane.showMessageDialog(null, "Função ainda não implementada");
+			arquivo.organizarIndice(TipoOrdenacao.Codigo);
+			Arquivo.setDadosRegistro(null);
+			Arquivo.setListaAlunos(null);
+			Arquivo.setListaIndices(null);
+			arquivo.imprimirDados();
 			menuPrograma(-1);
 			break;
 		default:

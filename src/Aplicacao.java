@@ -3,6 +3,7 @@
  */
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -14,7 +15,21 @@ public class Aplicacao {
 	public static void main(String[] args) throws Exception {
 		try {
 			arquivo = new Arquivo();
-			try {
+			List<Index> listaIndices = arquivo.getListIndexes();
+			System.out.println("Lista anterior: \n");
+			listaIndices.forEach( x ->{
+				System.out.println(x.toString());
+			});
+			ComparatorIndex comparator = new ComparatorIndex();
+			comparator.tipoOrdenacao(TipoOrdenacao.Lapide);
+			Collections.sort(listaIndices, comparator); 
+			System.out.println("Nova Lista: \n");
+			listaIndices.forEach( x ->{
+				System.out.println(x.toString());
+			});
+			
+			
+			/*try {
 				pegarDadosAlunos();
 //				Aluno bruna = new Aluno(58,"Daniela");
 //				arquivo.atualizarRegistro(bruna, 2);
@@ -32,7 +47,7 @@ public class Aplicacao {
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
-			}
+			}*/
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Mensagem", JOptionPane.WARNING_MESSAGE);
 		} finally {
