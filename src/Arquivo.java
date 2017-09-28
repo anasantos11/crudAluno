@@ -41,6 +41,29 @@ public class Arquivo {
 		file.write(r.getByteArray());
 		file.close();
 	}
+	
+	public void criarBase() throws IOException{
+		RandomAccessFile nomes = new RandomAccessFile("nomes.txt", "rw");
+		RandomAccessFile matriculas = new RandomAccessFile("matriculas.txt", "rw");
+		String [] registro = null;
+		
+		Aluno a = null;
+		
+		for(int i = 0; i < 209; i ++){
+			registro = nomes.readLine().split(";");
+			a = new Aluno(
+					Integer.parseInt(registro[0]),
+					registro[1],
+					0,
+					Integer.parseInt(registro[2]),
+					registro[4],
+					Double.parseDouble(registro[3]));
+			criarRegistro(a, -1);
+		}
+		
+		nomes.close();
+		matriculas.close();
+	}
 
 	/**
 	 * Método para criar indice primario dos registros de alunos

@@ -14,8 +14,10 @@ public class Aplicacao {
 	public static void main(String[] args) throws Exception {
 		try {
 			arquivo = new Arquivo();
+//			arquivo.criarBase();
+			
 			try {
-				pegarDadosAlunos();
+//				pegarDadosAlunos();
 //				Aluno bruna = new Aluno(58,"Daniela");
 //				arquivo.atualizarRegistro(bruna, 2);
 //				arquivo.pegarRegistroEspecifico(1);
@@ -50,7 +52,7 @@ public class Aplicacao {
 		while (cont < quantAlunos) {
 			codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
 			nome = JOptionPane.showInputDialog(null, "Digite o nome");
-			listaAlunos.add(new Aluno(codigo, nome));
+//			listaAlunos.add(new Aluno(codigo, nome));
 			cont++;
 		}
 

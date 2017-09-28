@@ -11,19 +11,52 @@ public class Aluno implements Registro {
 	protected int matricula;
 	protected String nome;
 	protected int inativo; // Inativo = 1 Ativo = 0
-
+	protected int idade;
+	protected String curso;
+	protected double notaMedia;
+	
 	public Aluno() {
 		setStatus(0);
 		setCodigo(-1);
 		setString("");
+		setIdade(0);
+		setCurso("");
+		setNotaMedia(0);
 	}
 
-	public Aluno(int matricula, String nome) {
-		setStatus(0);
-		setString(nome);
-		setCodigo(matricula);
+	public Aluno(int matricula, String nome, int inativo, int idade, String curso, double notaMedia) {
+		this.matricula = matricula;
+		this.nome = nome;
+		this.inativo = inativo;
+		this.idade = idade;
+		this.curso = curso;
+		this.notaMedia = notaMedia;
 	}
 
+	public String getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+	public double getNotaMedia() {
+		return notaMedia;
+	}
+
+	public void setNotaMedia(double notaMedia) {
+		this.notaMedia = notaMedia;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+	
 	@Override
 	public void setStatus(int inativo) {
 		this.inativo = inativo;
@@ -61,6 +94,9 @@ public class Aluno implements Registro {
 		saida.writeInt(inativo);
 		saida.writeInt(matricula);
 		saida.writeUTF(nome);
+		saida.writeInt(idade);
+		saida.writeUTF(curso);
+		saida.writeDouble(notaMedia);
 		return registro.toByteArray();
 	}
 
@@ -71,6 +107,9 @@ public class Aluno implements Registro {
 		inativo = entrada.readInt();
 		matricula = entrada.readInt();
 		nome = entrada.readUTF();
+		idade = entrada.readInt();
+		curso = entrada.readUTF();
+		notaMedia = entrada.readDouble();
 	}
 
 	@Override
@@ -85,7 +124,12 @@ public class Aluno implements Registro {
 
 	@Override
 	public String toString() {
-		return "Aluno [" + "inativo=" + inativo + ", matricula=" + matricula + ", nome=" + nome + "]";
+		return "Aluno [matricula=" + matricula + ", inativo=" + inativo + ", nome=" + nome + ", idade=" + idade
+				+ ", curso=" + curso + ", notaMedia=" + notaMedia + "]";
 	}
+	
+	
+
+
 
 }

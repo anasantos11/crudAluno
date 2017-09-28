@@ -28,12 +28,16 @@ public class App {
 		quantAlunos = Integer
 				.parseInt(JOptionPane.showInputDialog(null, "Digite a quantidade de alunos que deseja cadastrar"));
 		int cont = 0;
-		int codigo;
-		String nome;
+		int codigo, idade;
+		double notaMedia;
+		String nome, curso;
 		while (cont < quantAlunos) {
 			codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
 			nome = JOptionPane.showInputDialog(null, "Digite o nome");
-			listaAlunos.add(new Aluno(codigo, nome));
+			idade = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite a matricula"));
+			curso = JOptionPane.showInputDialog(null, "Digite o nome");
+			notaMedia = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a matricula"));
+			listaAlunos.add(new Aluno(codigo, nome, 0, idade, curso, notaMedia));
 			cont++;
 		}
 	}
