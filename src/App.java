@@ -54,7 +54,7 @@ public class App {
 						+ "\n  7  -  Alterar Registro" 
 						+ "\n  8  -  Remover Registro"
 						+ "\n  9  -  Ordenar Registros Crescente "
-						+ "\n  10  -  Ordenar Registros Decrescente \n");
+						+ "\n 10  -  Ordenar Registros Decrescente \n");
 		if (x == null) {
 			JOptionPane.showMessageDialog(null, "Encerrando programa...");
 			escolha = 0;
