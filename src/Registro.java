@@ -1,6 +1,5 @@
-
 /**
- * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ * @authors Ana Paula dos Santos and Luiz Henrique Silva Jesus
  */
 import java.io.IOException;
 

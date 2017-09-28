@@ -1,10 +1,11 @@
+package Outros;
 /**
- * @authors Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
  */
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
 public class Aplicacao {
@@ -58,7 +59,6 @@ public class Aplicacao {
 
 	}
 
-	@SuppressWarnings("unused")
 	public static void pegarDadosAlunos() {
 		quantAlunos = Integer
 				.parseInt(JOptionPane.showInputDialog(null, "Digite a quantidade de alunos que deseja cadastrar"));

@@ -1,5 +1,6 @@
+package Outros;
 /**
- * @authors Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ * @author Ana Paula dos Santos and Luiz Henrique Silva Jesus
  */
 
 import java.awt.Color;

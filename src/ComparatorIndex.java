@@ -1,3 +1,6 @@
+/**
+ * @authors Ana Paula dos Santos and Luiz Henrique Silva Jesus
+ */
 import java.util.Comparator;
 
 public class ComparatorIndex implements Comparator<Index> {
