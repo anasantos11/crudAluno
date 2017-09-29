@@ -365,38 +365,6 @@ public class Arquivo {
 
 	}
 
-	public void organizarArquivo(TipoOrdenacao tipo) throws IOException {
-		if (listaAlunos == null) {
-			listaAlunos = getListRegistros();
-		}
-		ComparatorAluno comparator = new ComparatorAluno();
-		File tmpFile = File.createTempFile("arquivo", ".tmp");
-		RandomAccessFile temp = new RandomAccessFile(tmpFile, "rw");
-		long seek;
-
-		comparator.tipoOrdenacao(tipo);
-		Collections.sort(listaAlunos, comparator);
-
-		for (Aluno r : listaAlunos) {
-			seek = tmpFile.length();
-			temp.seek(seek);
-			temp.writeInt(r.getByteArray().length);
-			temp.write(r.getByteArray());
-		}
-		@SuppressWarnings("resource")
-		FileChannel src = new FileInputStream(tmpFile).getChannel();
-		@SuppressWarnings("resource")
-		FileChannel dest = new FileOutputStream(db, false).getChannel();
-		dest.transferFrom(src, 0, src.size());
-
-		temp.close();
-		src.close();
-		dest.close();
-		tmpFile.deleteOnExit();
-
-	}
-
-	
 	/**
 	 * Setters
 	 * 
@@ -454,30 +422,5 @@ public class Arquivo {
 		nomes.close();
 	}
 
-	/**
-	 * METODO NAO ESTA SENDO UTILIZADO Metodo retornara List<Alunos> com os
-	 * registros do arquivo
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public List<Aluno> getListRegistros2() throws IOException {
-		if (listaAlunos == null) {
-			RandomAccessFile file = new RandomAccessFile(db, "r");
-			listaAlunos = new ArrayList<Aluno>();
-			while (file.getFilePointer() < file.length()) {
-				int tamanho = file.readInt();
-				byte[] b = new byte[tamanho];
-				file.read(b);
-				Aluno aluno = new Aluno();
-				aluno.setByteArray(b);
-				if (aluno != null) {
-					listaAlunos.add(aluno);
-				}
-			}
-			file.close();
-		}
-		return listaAlunos;
-	}
 
 }
