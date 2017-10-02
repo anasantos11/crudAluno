@@ -20,7 +20,7 @@ public class App {
 	private static String curso = "";
 	private static Aluno aluno = null;
 	private static List<Aluno> listaAlunos = new ArrayList<Aluno>();
-	private static Arquivo arquivo;
+	private static Arquivo arquivo; 
 
 	public static void main(String[] args) throws Exception {
 		arquivo = new Arquivo();
